@@ -10,7 +10,9 @@ void execute_instruction(Instruction instruction,Processor* processor,Byte *memo
     switch(instruction.opcode) {
         case 0x0: // opcode == 0x0(SPECIAL)
             switch(instruction.rtype.funct) {
+                    /**************/
                     
+                /***GIVEN***/
                 case 0xc: // funct == 0xc (SYSCALL)
                     execute_syscall(processor);
                     processor->PC += 4;
@@ -91,7 +93,8 @@ void execute_instruction(Instruction instruction,Processor* processor,Byte *memo
                     processor->R[instruction.rtype.rd] = processor->R[instruction.rtype.rs] - processor->R[instruction.rtype.rt];
                     processor->PC += 4;
                     break;
-
+                    
+                /***GIVEN***/
                 case 0x24: // funct == 0x24 (AND)
                     processor->R[instruction.rtype.rd] = processor->R[instruction.rtype.rs] & processor->R[instruction.rtype.rt];
                     processor->PC += 4;
@@ -123,10 +126,14 @@ void execute_instruction(Instruction instruction,Processor* processor,Byte *memo
                     fprintf(stderr,"%s: pc=%08x,illegal function=%08x\n",__FUNCTION__,processor->PC,instruction.bits);
                     exit(-1);
                     break;
-
+                    
+                    /**************/
+                        
             }
             break;
        
+            
+        /***GIVEN***/    
         case 0x2: // opcode == 0x2 (J)
             processor->PC = ((processor->PC+4) & 0xf0000000) | (instruction.jtype.addr << 2);
             break;
@@ -173,6 +180,7 @@ void execute_instruction(Instruction instruction,Processor* processor,Byte *memo
             processor->PC += 4;
             break;
             
+        /***GIVEN***/
         case 0xd: // opcode == 0xd (ORI)
             processor->R[instruction.itype.rt] = processor->R[instruction.itype.rs] | instruction.itype.imm;
             processor->PC += 4;

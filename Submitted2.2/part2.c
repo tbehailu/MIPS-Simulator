@@ -179,7 +179,6 @@ void execute_instruction(Instruction instruction,Processor* processor,Byte *memo
             break;
         case 0xe: // opcode == 0xe (XORI)
             processor->R[instruction.itype.rt] = processor->R[instruction.itype.rs] ^ (Word) instruction.itype.imm;
-            // or ^ (unsigned int) instruction.itype.imm
             processor->PC += 4;
             break;
         case 0xf: // opcode == 0xf (LUI) 
